@@ -1,0 +1,44 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\author{Nicolas Schreuder, Sholom Schechtman}
+\begin{document}
+
+\section{Subject}
+
+Name: Multi-armed Bandit in Adversarial Environments (implementation)
+
+Topic:  Bandit
+
+Category: implementation
+
+Description:  While a lot of literature in multi-armed bandit (MAB) focused on the so-called stochastic setting, where each arm is characterized by an i.i.d. process, this assumption fails in many real-world applications. At the opposite side of the spectrum, there is online learning on arbitrary sequences or adversarial environments, where any assumption on the way rewards are generated is dropped. This new setting poses distinctive challenges to standard MAB algorithms and requires the development of novel approaches. In this project you should implement and compare a series of adversarial MAB algorithms on a number of different settings. The breadth and variety of the review can be adjusted according to the interest of the students.
+
+\section{TODO}
+
+\begin{itemize}
+\item Describe adversarial bandit framework/setting (section 1 of report)
+\item Review the available algorithms (Exp3, Exp3-IX, ...?)
+\item Set up experiments : what do we have a to define for an experiment ? Number of arms and ... ? Test the algorithms on the experiments
+\item  Find a practical (or "serious") problem to test the algorithms
+\item Bonus : if you really get interested in the problem, look at the conclusions in http://cs.bme.hu/~gergo/files/N15b.pdf where they mention the possibility to extend the implicit exploration idea to linear bandit and discuss/test this possibility.
+\end{itemize}
+
+
+\section{References}
+
+For the algorithms the references are in:
+
+\begin{itemize}
+\item "Learning, predictions, and games"
+\item “Regret Analysis of Stochastic and Nonstochastic Multi-armed Bandit Problems”
+\item \url{http://cs.bme.hu/~gergo/files/N15b.pdf}
+\item\url{http://www.ds3-datascience-polytechnique.fr/wp-content/uploads/2017/09/2017_08_31-09_01_Csaba_Szepesvari_Bandits_part2.pdf} (Csaba Szepesvari slides)
+\end{itemize}
+
+\end{document}
