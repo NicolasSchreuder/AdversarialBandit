@@ -23,8 +23,8 @@ def exp3_Bianchi(MAB, T, eta):
     # Initialize estimated cumulative rewards
     R = np.zeros(K)
 
-    # History of rewards and weights
-    reward_hist, weights_hist = np.zeros(T), []
+    # History of rewards, weights and probability distribution
+    reward_hist, weights_hist, prob_hist = np.zeros(T), [], []
 
     for t in range(T):
 
@@ -47,8 +47,9 @@ def exp3_Bianchi(MAB, T, eta):
         # Save obtained reward and weights
         reward_hist[t] = drawn_reward
         weights_hist.append(np.exp(eta[t] * R))
+        prob_hist.append(p)
 
-    return reward_hist, weights_hist
+    return reward_hist, weights_hist, prob_hist
 
 def exp3P_Bianchi(MAB, T, eta, gamma, beta):
     """
@@ -68,8 +69,8 @@ def exp3P_Bianchi(MAB, T, eta, gamma, beta):
     # Initialize estimated cumulative rewards
     R = np.zeros(K)
 
-    # History of rewards and weights
-    reward_hist, weights_hist = [], []
+    # History of rewards, weights and probability distribution
+    reward_hist, weights_hist, prob_hist = np.zeros(T), [], []
 
     for t in range(T):
 
@@ -92,10 +93,11 @@ def exp3P_Bianchi(MAB, T, eta, gamma, beta):
         R += beta/p # add beta for exploration
 
         # Save obtained reward and weights
-        reward_hist.append(drawn_reward)
+        reward_hist[t] = drawn_reward
         weights_hist.append(np.exp(eta * R))
+        prob_hist.append(p)
 
-    return reward_hist, weights_hist
+    return reward_hist, weights_hist, prob_hist
 
 
 def exp3_IX(MAB, T, eta, gamma):
@@ -110,8 +112,8 @@ def exp3_IX(MAB, T, eta, gamma):
     K = len(MAB) # number of arms
     W = np.ones(K) # initialize weights
 
-    # History of rewards and weights
-    reward_hist, weights_hist = [], []
+    # History of rewards, weights and probability distribution
+    reward_hist, weights_hist, prob_hist = np.zeros(T), [], []
 
     R = np.zeros(K) # Estimated cumulative rewards
 
@@ -133,7 +135,8 @@ def exp3_IX(MAB, T, eta, gamma):
         R[drawn_index] += estimated_reward # Update estimated cumulative rewards
 
         # Save obtained reward and weights
-        reward_hist.append(drawn_reward)
+        reward_hist[t] = drawn_reward
         weights_hist.append(np.exp(eta * R))
+        prob_hist.append(p)
 
-    return reward_hist, weights_hist
+    return reward_hist, weights_hist, prob_hist
