@@ -1,3 +1,5 @@
+import numpy as np
+
 def UCB1(MAB, T, rho):
     n_iter = 0
     K = len(MAB)

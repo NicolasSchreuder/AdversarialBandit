@@ -2,6 +2,8 @@
 # https://jeremykun.com/2013/11/08/adversarial-bandits-and-the-exp3-algorithm/
 # https://arxiv.org/pdf/1506.03271.pdf
 
+import numpy as np
+
 def exp3_Bianchi(MAB, T, eta):
     """
     Exp3 algorithm as in "Regret Analysis of Stochastic and

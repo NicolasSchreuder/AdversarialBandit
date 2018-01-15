@@ -1,3 +1,5 @@
+impor numpy as np
+
 class Arm():
     """
     Defines an arm with arbitrary finite sequence of reward
