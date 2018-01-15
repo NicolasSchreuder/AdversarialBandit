@@ -1,4 +1,4 @@
-impor numpy as np
+import numpy as np
 
 class Arm():
     """

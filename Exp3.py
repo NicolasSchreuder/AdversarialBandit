@@ -15,13 +15,16 @@ def exp3_Bianchi(MAB, T, eta):
     eta: list of length T of exploration parameters of Exp3
     """
 
+    if not isinstance(eta, list) or len(eta)<T:
+        eta = [eta for _ in range(T)]
+
     K = len(MAB) # number of arms
 
     # Initialize estimated cumulative rewards
     R = np.zeros(K)
 
     # History of rewards and weights
-    reward_hist, weights_hist = [], []
+    reward_hist, weights_hist = np.zeros(T), []
 
     for t in range(T):
 
@@ -42,7 +45,7 @@ def exp3_Bianchi(MAB, T, eta):
         R[drawn_index] += drawn_reward / p[drawn_index]
 
         # Save obtained reward and weights
-        reward_hist.append(drawn_reward)
+        reward_hist[t] = drawn_reward
         weights_hist.append(np.exp(eta[t] * R))
 
     return reward_hist, weights_hist
@@ -115,7 +118,7 @@ def exp3_IX(MAB, T, eta, gamma):
     for t in range(T):
 
         # Set probabilities of drawing each arm
-        p = np.exp(eta[t] * (R - np.max(R)))
+        p = np.exp(eta * (R - np.min(R)))
         p = p / np.sum(p)
 
         # Draw arm index
