@@ -4,7 +4,7 @@
 
 import numpy as np
 
-def exp3_Bianchi(MAB, T, eta):
+def exp3_Bianchi(MAB, T, eta, gamma=0):
     """
     Exp3 algorithm as in "Regret Analysis of Stochastic and
     Nonstochastic Multi-armed Bandit Problems"
@@ -31,6 +31,7 @@ def exp3_Bianchi(MAB, T, eta):
         # Compute probability distribution for chosing arm
         p = np.exp(eta[t] * (R - np.max(R))) # np.max(R) term for normalization
         p /= np.sum(p)
+        p = (1 - gamma) * p + gamma / K
 
         # Draw arm index
         drawn_index = np.random.choice(a=K, p=p)
@@ -115,12 +116,11 @@ def exp3_IX(MAB, T, eta, gamma):
     # History of rewards, weights and probability distribution
     reward_hist, weights_hist, prob_hist = np.zeros(T), [], []
 
-    R = np.zeros(K) # Estimated cumulative rewards
-
+    L = np.zeros(K) # Estimated cumulative loss
     for t in range(T):
 
         # Set probabilities of drawing each arm
-        p = np.exp(eta * (R - np.min(R)))
+        p = np.exp(-eta * (L - np.min(L)))
         p = p / np.sum(p)
 
         # Draw arm index
@@ -128,15 +128,17 @@ def exp3_IX(MAB, T, eta, gamma):
 
         # Draw corresponding reward
         drawn_reward = MAB[drawn_index].sample(t)
-
+        
+        drawn_loss = 1 - drawn_reward #as in the article we use losses
+        
         # Compute estimated reward with implicit exploration
-        estimated_reward = drawn_reward/(p[drawn_index] + gamma)
-
-        R[drawn_index] += estimated_reward # Update estimated cumulative rewards
-
+        estimated_loss = drawn_loss / (p[drawn_index] + gamma)
+        
+        L[drawn_index] += estimated_loss #update cumulative loss
+        
         # Save obtained reward and weights
         reward_hist[t] = drawn_reward
-        weights_hist.append(np.exp(eta * R))
+        weights_hist.append(np.exp(-eta * L))
         prob_hist.append(p)
 
     return reward_hist, weights_hist, prob_hist
