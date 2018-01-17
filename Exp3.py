@@ -4,7 +4,7 @@
 
 import numpy as np
 
-def exp3_Bianchi(MAB, T, eta, gamma=0):
+def exp3(MAB, T, eta, gamma=0):
     """
     Exp3 algorithm as in "Regret Analysis of Stochastic and
     Nonstochastic Multi-armed Bandit Problems"
@@ -52,7 +52,7 @@ def exp3_Bianchi(MAB, T, eta, gamma=0):
 
     return reward_hist, weights_hist, prob_hist
 
-def exp3P_Bianchi(MAB, T, eta, gamma, beta):
+def exp3P(MAB, T, eta, gamma, beta):
     """
     Exp3.P algorithm as in "Regret Analysis of Stochastic and
     Nonstochastic Multi-armed Bandit Problems"
