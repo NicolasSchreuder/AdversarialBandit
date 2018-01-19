@@ -30,3 +30,18 @@ class evolvingBernoulliArm():
             return np.random.binomial(p=self.means[0], n=1)
         else:
             return np.random.binomial(p=self.means[1], n=1)
+
+class viciousArm():
+    def __init__(self):
+        self.last_time_played = 0
+
+    def sample(self, t):
+
+        if t-1 == self.last_time_played:
+            self.last_time_played = t
+            rew = 0
+        else:
+            rew = 1
+
+        self.last_time_played = t
+        return rew
