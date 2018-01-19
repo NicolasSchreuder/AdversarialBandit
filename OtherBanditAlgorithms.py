@@ -18,7 +18,7 @@ def UCB1(MAB, T, rho=0.5):
     # Draw each arm once
     for k in range(K):
         N[k] += 1 # Updates number of draws for arm k
-        reward = float(MAB[k].sample())
+        reward = float(MAB[k].sample(k))
         S[k] += reward # Updates sum of rewards
 
         rew.append(reward) # Saves obtained reward
@@ -29,7 +29,7 @@ def UCB1(MAB, T, rho=0.5):
 
         mu = S/N # Empirical mean of the rewards
 
-        arm_estimated_values = [mu[k] + rho*np.sqrt(log(t)/(2*N[k])) for k in range(K)]
+        arm_estimated_values = [mu[k] + rho*np.sqrt(np.log(t)/(2*N[k])) for k in range(K)]
 
         selected_arm = np.argmax(arm_estimated_values) # Selects best arm
 
@@ -37,7 +37,7 @@ def UCB1(MAB, T, rho=0.5):
         draws.append(selected_arm) # Saves selected arm
 
         # Draws a sample from the selected arm and saves received reward
-        instant_reward = float(MAB[selected_arm].sample())
+        instant_reward = float(MAB[selected_arm].sample(t))
 
         rew.append(instant_reward) # Saves obtained reward
 
